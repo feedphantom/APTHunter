@@ -1,0 +1,51 @@
+{
+    "countries": [
+        "China",
+        "Russia",
+        "Iran",
+        "North Korea",
+        "USA",
+        "India",
+        "Vietnam",
+        "Turkey",
+        "Pakistan",
+        "Israel",
+        "Saudi Arabia",
+        "United Arab Emirates",
+        "Qatar",
+        "Egypt",
+        "Kuwait",
+        "Bahrain",
+        "Oman"
+    ],
+    "sectors": [
+        "government",
+        "military",
+        "energy",
+        "finance",
+        "healthcare",
+        "education",
+        "media",
+        "technology",
+        "transportation",
+        "telecom",
+        "retail",
+        "hospitality",
+        "real estate",
+        "construction",
+        "transportation"
+    ],
+    "alias": [
+        "APT28",
+        "APT29",
+        "Lazarus Group",
+        "FIN7",
+        "MuddyWater",
+        "OilRig",
+        "Equation Group",
+        "Strider",
+        "Charming Kitten",
+        "Turla",
+        "Cozy Bear"
+    ]
+}
