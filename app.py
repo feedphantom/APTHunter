@@ -624,5 +624,17 @@ with tab6:
             use_container_width=True,
         )
         st.bar_chart(df_sectors.set_index("Sector"))
+
     else:
         st.info("No hay datos de sectores en los grupos.")
+
+# --- FOOTER ---
+st.markdown("---")
+st.markdown(
+    "<div style='text-align:center; font-size: 0.95em;'>"
+    "Desarrollado por <b>SweetNight19</b> | "
+    "<a href='https://github.com/sweetnight19/APTHunter' target='_blank'>GitHub</a> | "
+    "Licencia MIT"
+    "</div>",
+    unsafe_allow_html=True,
+)
