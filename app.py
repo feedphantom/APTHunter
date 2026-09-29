@@ -473,7 +473,7 @@ with tab_techniques:
             ]
             st.caption(f"{len(related)} técnicas asociadas")
             if related:
-                st.write(", ".join(sorted(related, key=str.casefold))
+                st.write(", ".join(sorted(related, key=str.casefold)))
 
 
 def _show_software_tab(tab, object_type: str, title: str) -> None:
