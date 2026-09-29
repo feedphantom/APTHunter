@@ -94,9 +94,9 @@ def fetch_remote_attack_data() -> dict:
 
 
 @st.cache_data(show_spinner=False)
-def build_indexes(data: dict, fingerprint: tuple[int, int]) -> dict:
+def build_indexes(_data: dict, fingerprint: tuple[int, int]) -> dict:
     del fingerprint
-    objects = [obj for obj in data.get("objects", []) if isinstance(obj, dict) and _active(obj)]
+    objects = [obj for obj in _data.get("objects", []) if isinstance(obj, dict) and _active(obj)]
     by_id = {obj["id"]: obj for obj in objects if isinstance(obj.get("id"), str)}
     by_type: dict[str, list[dict]] = {}
     for obj in objects:
