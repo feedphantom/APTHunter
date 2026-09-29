@@ -2,7 +2,7 @@
 
 APTHunter is a Python command-line and Streamlit application for exploring threat groups and related data from the public [MITRE ATT&CK Enterprise dataset](https://attack.mitre.org/).
 
-The web app lets you search groups by country, alias, or sector; inspect tactics, techniques, malware, tools, and campaigns; and view summary statistics. The CLI supports the same group filters and can export matching groups to CSV.
+The web app lets you search groups by name or alias, narrow results by country and sector, explore tactics, techniques, malware, tools, and campaigns, view statistics, and download filtered results as CSV. The CLI supports group filters and CSV export.
 
 ## Features
 
@@ -11,7 +11,7 @@ The web app lets you search groups by country, alias, or sector; inspect tactics
 - Browse ATT&CK tactics and techniques, including technique mitigations.
 - Explore documented malware, tools, and campaigns.
 - View statistics for countries, techniques, malware, and sectors.
-- Export filtered group results to CSV from the CLI.
+- Download filtered group results as CSV from the web app or CLI.
 
 ## Requirements
 
@@ -40,7 +40,7 @@ On Windows, activate the environment with:
 streamlit run app.py
 ```
 
-The app reads the ATT&CK data from `data/enterprise-attack.json`. It displays the dataset version when available and can notify you when MITRE publishes a newer ATT&CK spec version.
+The app reads the ATT&CK data from `data/enterprise-attack.json`. Use **Comprobar actualizaciones** in the sidebar to check for a newer ATT&CK spec version, then choose whether to update the local dataset. The app validates the downloaded bundle before replacing the file.
 
 ## Run the CLI
 
