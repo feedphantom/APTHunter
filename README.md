@@ -1,113 +1,107 @@
 # 🕵️ APTHunter
 
-**APTHunter** is a Python tool to query, filter, and visualize information about APT (Advanced Persistent Threat) groups using the public [MITRE ATT&CK](https://attack.mitre.org/) database.
+APTHunter is a Python command-line and Streamlit application for exploring threat groups and related data from the public [MITRE ATT&CK Enterprise dataset](https://attack.mitre.org/).
 
-It features a modern Streamlit web interface for quick searches by country, alias, or sector, displaying tactics, techniques, sectors, aliases, and official links, plus CSV export.
+The web app lets you search groups by country, alias, or sector; inspect tactics, techniques, malware, tools, and campaigns; and view summary statistics. The CLI supports the same group filters and can export matching groups to CSV.
 
----
+## Features
 
-## 🚀 Main Features
+- Search ATT&CK groups by country, alias, or targeted sector.
+- Review group aliases, descriptions, tactics, techniques, sectors, and MITRE references.
+- Browse ATT&CK tactics and techniques, including technique mitigations.
+- Explore documented malware, tools, and campaigns.
+- View statistics for countries, techniques, malware, and sectors.
+- Export filtered group results to CSV from the CLI.
 
-- 🔎 Query and visualize APT groups from MITRE ATT&CK via `attackcti`.
-- 🌍 Filter by country, alias, or sector.
-- 🏷️ Shows aliases, tactics, techniques, sectors, description, and official link.
-- 📊 Export filtered results to CSV with one click.
-- ⚡ Modern web visualization with Streamlit.
-- 📈 Interactive statistics for groups, techniques, malware, and sectors.
-- 🦠 Browse documented malware, tools, and campaigns.
-- 🛡️ Explore ATT&CK tactics and techniques with mitigations.
-- 🎯 Group APTs by country.
-- 🐍 Python-based, easy to understand and customize.
+## Requirements
 
----
+- Python and pip
+- Dependencies listed in `requirements.txt`
 
-## 🖼️ Suggested Screenshots
+## Setup
 
-> Add screenshots of the Streamlit interface and statistics tab for better visual presentation.
-
----
-
-## 🗂️ Tabs & Functionality
-
-- **🔍 APT Search:** Filter and explore groups by country, alias, or sector. Export results to CSV.
-- **🛡️ Tactics & Techniques:** Browse all ATT&CK tactics and techniques, with details and mitigations.
-- **🦠 Malware:** Browse documented malware, with description, platforms, and related techniques.
-- **🛠️ Tools:** Explore tools used by groups, with details and related techniques.
-- **🎯 Campaigns:** View attributed campaigns, period, targets, and description.
-- **📊 Statistics:** Visualize charts and tables for groups by country, most used techniques, most frequent malware, and most targeted sectors.
-
----
-
-## 📦 Requirements
-
-Install dependencies from `requirements.txt`:
+Run these commands from the repository root:
 
 ```bash
-pip install -r requirements.txt
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 ```
 
----
+On Windows, activate the environment with:
 
-## 🖥️ Quick Start
+```powershell
+.venv\Scripts\Activate.ps1
+```
 
-### 1. Run the web app
-
-From the main folder:
+## Run the web app
 
 ```bash
 streamlit run app.py
 ```
 
-### 2. Search options
+The app reads the ATT&CK data from `data/enterprise-attack.json`. It displays the dataset version when available and can notify you when MITRE publishes a newer ATT&CK spec version.
 
-- **By country:** Select a country to see related groups.
-- **By alias:** Enter part or all of the alias (e.g., `APT29`).
-- **By sector:** Filter by sectors like energy, finance, government, health.
+## Run the CLI
 
-### 3. Visualization
+Start the interactive menu:
 
-Each group shows:
-
-- 🎯 Name
-- 🏷️ Aliases
-- 🧩 Tactics
-- 🛠️ Techniques
-- 🏢 Sectors
-- 🔗 MITRE ATT&CK link
-- 📝 Description
-- 🦠 Used malware
-- 🎯 Attributed campaigns
-
-### 4. Export results
-
-Click the **Export results to CSV** button to download filtered data.
-
----
-
-## 🛠️ Project Structure
-
+```bash
+python apt_hunter.py
 ```
-apt_hunter.py
-app.py
-requirements.txt
+
+Or pass a filter directly:
+
+```bash
+python apt_hunter.py --country Russia
+python apt_hunter.py --alias APT29
+python apt_hunter.py --sector energy
+```
+
+Filters can be combined. For example, search for groups matching both country and sector:
+
+```bash
+python apt_hunter.py --country Russia --sector government
+```
+
+Export the matching groups to CSV:
+
+```bash
+python apt_hunter.py --country Russia --export-csv russia-groups.csv
+```
+
+Use `python apt_hunter.py --help` to see the available options.
+
+## Data and interpretation
+
+APTHunter uses MITRE ATT&CK Enterprise data. Country and sector filters use the corresponding fields in each group record; they do not infer targeting from a group's description. Coverage varies by group, so missing country or sector values mean the dataset does not provide that field.
+
+Relationships and attributions shown by the app reflect the source dataset. They are not independent confirmation that an operation or group attribution is correct. Check the linked MITRE ATT&CK pages and other primary sources before relying on the information.
+
+## Project structure
+
+```text
+app.py                  Streamlit web application
+apt_hunter.py           Command-line interface
 apt_hunter/
-	core.py
-	filters.py
-	output.py
+  core.py               ATT&CK data loading and group normalization
+  filters.py            Group filters
+  output.py             CLI output formatting
 data/
-	choices.json
-	enterprise-attack.json
+  choices.json          Common search choices
+  enterprise-attack.json ATT&CK Enterprise dataset snapshot
+requirements.txt        Python dependencies
 ```
 
----
+## Contributing
 
-## 🤝 Credits
+Bug reports and pull requests are welcome. For changes to filters or data handling, include a small reproducible example or test case where possible.
 
-- Based on [MITRE ATT&CK](https://attack.mitre.org/) and [attackcti](https://github.com/OTRF/ATTACK-Python-Client).
-- Web interface with [Streamlit](https://streamlit.io/).
+## Credits
 
----
+- [MITRE ATT&CK](https://attack.mitre.org/) and the [MITRE ATT&CK Python Client](https://github.com/OTRF/ATTACK-Python-Client)
+- [Streamlit](https://streamlit.io/)
 
-## 📄 License
+## License
 
-This project is distributed under the MIT license. See the LICENSE file for details.
+APTHunter is distributed under the MIT License. See [LICENSE](LICENSE).
