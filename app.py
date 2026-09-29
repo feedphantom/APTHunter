@@ -84,7 +84,10 @@ def fetch_remote_attack_data() -> dict:
         not isinstance(data, dict)
         or not isinstance(data.get("objects"), list)
         or len(data["objects"]) < 100
-        or not any(obj.get("type") == "x-mitre-matrix" for obj in data["objects"])
+        or not any(
+            isinstance(obj, dict) and obj.get("type") == "x-mitre-matrix"
+            for obj in data["objects"]
+        )
     ):
         raise ValueError("La respuesta no parece un bundle ATT&CK Enterprise completo.")
     return data
@@ -209,6 +212,7 @@ def _entity_options(objects: list[dict]) -> list[str]:
     )
 
 
+local_data_error = ""
 try:
     stat = DATA_FILE.stat()
     fingerprint = (stat.st_mtime_ns, stat.st_size)
@@ -408,7 +412,7 @@ with tab_techniques:
             technique_objects = [
                 obj for obj in technique_objects
                 if term in obj.get("name", "").casefold()
-                or any(term in ref.get("external_id", "").casefold() for ref in obj.get("external_references", []))
+                or any(term in str(ref.get("external_id", "")).casefold() for ref in obj.get("external_references", []))
             ]
         technique_objects.sort(key=lambda obj: obj.get("name", "").casefold())
         if technique_objects:
